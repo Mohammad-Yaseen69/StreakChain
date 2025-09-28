@@ -1,9 +1,9 @@
 import inquirer from "inquirer";
 import chalk from "chalk";
-import { about, createStreak, listStreaks } from "./options/index.ts";
+import { about, createStreak, deleteStreaks, listStreaks } from "./options/index.ts";
 
 
-const mainMenu = async () => {
+export const mainMenu = async () => {
     console.clear();
 
     console.log(chalk.magentaBright.bold("\n✨ Welcome to Streak Chain ✨\n"));
@@ -18,7 +18,8 @@ const mainMenu = async () => {
             choices: [
                 { name: chalk.green("Log Today’s Streak"), value: "log" },
                 { name: chalk.yellow("View Your Streaks"), value: "view" },
-                { name: chalk.gray("Create a Streak"), value: "create" },
+                { name: chalk.blue("Create a Streak"), value: "create" },
+                { name: chalk.red("Delete a Streak"), value: "delete" },
                 { name: chalk.cyan("About StreakChain"), value: "about" },
                 { name: chalk.red("Exit"), value: "exit" }
             ]
@@ -36,6 +37,10 @@ const mainMenu = async () => {
             break;
         case "view":
             listStreaks()
+            break;
+        case "delete":
+            deleteStreaks()
+            break;
         case "exit":
             console.log(chalk.redBright("\n👋 Thanks for using StreakChain. Stay disciplined!\n"));
             process.exit(0);

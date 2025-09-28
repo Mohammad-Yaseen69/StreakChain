@@ -8,7 +8,7 @@ type daysLogs = {
     success: boolean
 }
 
-type Streak = {
+export type Streak = {
     id: number;
     name: string;
     purpose: string;
