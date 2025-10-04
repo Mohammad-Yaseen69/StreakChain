@@ -21,12 +21,24 @@ export type Streak = {
 type DB = {
     xp: number;
     level: number;
-    streaks: Streak[]
+    streaks: Streak[];
+    totalXP: number;
+    levelUpHistory: Array<{
+        level: number;
+        date: string;
+        title: string;
+    }>;
 };
 
 
 const file = path.resolve('./src/db/db.json');
 const adapter = new JSONFile<DB>(file);
-const db = new Low<DB>(adapter, { xp: 0, level: 1, streaks: [] });
+const db = new Low<DB>(adapter, { 
+    xp: 0, 
+    level: 1, 
+    streaks: [], 
+    totalXP: 0, 
+    levelUpHistory: [] 
+});
 
 export default db
