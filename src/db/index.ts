@@ -33,12 +33,12 @@ type DB = {
 
 const file = path.resolve('./src/db/db.json');
 const adapter = new JSONFile<DB>(file);
-const db = new Low<DB>(adapter, { 
-    xp: 0, 
-    level: 1, 
-    streaks: [], 
-    totalXP: 0, 
-    levelUpHistory: [] 
+const db = new Low<DB>(adapter, {
+    xp: 0,
+    level: 1,
+    streaks: [],
+    totalXP: 0,
+    levelUpHistory: []
 });
 
 export default db
