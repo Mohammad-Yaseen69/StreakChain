@@ -4,7 +4,7 @@ import boxen from "boxen";
 import db from "../db/index.ts";
 import { mainMenu, restartProgram } from "../index.ts";
 
-const preview = async () => {
+const listStreaks = async () => {
     await db.read();
 
     if (db.data.streaks.length === 0) {
@@ -56,4 +56,4 @@ const preview = async () => {
     }
 };
 
-export default preview;
+export default listStreaks;

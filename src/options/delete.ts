@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import chalk from "chalk"
-import db from "../db/index.ts";
-import { mainMenu, restartProgram } from "../index.ts";
+import db, { Streak } from "../db/index.ts";
+import { mainMenu, removeXP, restartProgram } from "../index.ts";
 
 const deleteStreaks = async () => {
     await db.read()
@@ -27,6 +27,9 @@ const deleteStreaks = async () => {
                 message: "Are you sure you wants to delete this streak? you will lost all your XP for this streak."
             }])
             if (agree === true) {
+                const streakXp: any = db.data.streaks.find(s => s.id === streak)?.xpPerStreak
+                await removeXP(streakXp)
+
                 db.data.streaks = db.data.streaks.filter(s => s.id !== streak)
                 await db.write()
                 console.log(chalk.green("Streak Deleted Successfully"))

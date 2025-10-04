@@ -42,7 +42,13 @@ const createStreak = async () => {
 
 
             if (!db.data) {
-                db.data = { xp: 0, level: 1, streaks: [] };
+                db.data = { 
+                    xp: 0, 
+                    level: 1, 
+                    streaks: [], 
+                    totalXP: 0, 
+                    levelUpHistory: [] 
+                };
             }
 
             db.data.streaks.push({
@@ -57,7 +63,7 @@ const createStreak = async () => {
 
             await db.write()
             const message = chalk.cyanBright(`
-                ✅ Your Streak "Workout" has been created successfully!
+                ✅ Your Streak ${name} has been created successfully!
                 🔥 Remember: consistency beats motivation —
                 every day you log this streak, you're leveling up your discipline!
                 Keep pushing, you've got this! 💪
