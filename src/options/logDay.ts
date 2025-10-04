@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import chalk from "chalk"
 import db from "../db/index.ts";
-import { mainMenu, restartProgram } from "../index.ts";
+import { mainMenu, restartProgram, addXP, removeXP } from "../index.ts";
 
 const list = async () => {
     await db.read()
@@ -43,10 +43,33 @@ const list = async () => {
                         dayNumber: lastDay ? lastDay.dayNumber + 1 : 1,
                         success: true
                     })
-                    streakData!.xpPerStreak += 10
-                    db.data.xp += 10
-                    await db.write()
-                    console.log(chalk.greenBright("✅ Day logged successfully You have gained 10 xp! Keep it up!"))
+                    // Calculate XP with streak bonus
+                    let xpGained = 10;
+                    const currentStreak = lastDay ? lastDay.dayNumber + 1 : 1;
+                    
+                    // Bonus XP for milestone streaks
+                    if (currentStreak === 7) {
+                        xpGained += 20; // 7-day milestone bonus
+                        console.log(chalk.yellowBright("🎉 7-day streak milestone! +20 bonus XP!"));
+                    } else if (currentStreak === 30) {
+                        xpGained += 50; // 30-day milestone bonus
+                        console.log(chalk.yellowBright("🏆 30-day streak milestone! +50 bonus XP!"));
+                    } else if (currentStreak === 100) {
+                        xpGained += 100; // 100-day milestone bonus
+                        console.log(chalk.yellowBright("👑 100-day streak milestone! +100 bonus XP!"));
+                    } else if (currentStreak % 10 === 0 && currentStreak > 0) {
+                        xpGained += 10; // Every 10 days bonus
+                        console.log(chalk.cyanBright(`🎯 ${currentStreak}-day streak! +10 bonus XP!`));
+                    }
+                    
+                    streakData!.xpPerStreak += xpGained
+                    
+                    // Use the new XP system
+                    const leveledUp = await addXP(xpGained);
+                    console.log(chalk.greenBright(`✅ Day logged successfully! You have gained ${xpGained} XP! Keep it up!`))
+                    if (leveledUp) {
+                        console.log(chalk.yellowBright("🎉 Level up! Check your new level in the main menu!"));
+                    }
                     restartProgram()
                 } else {
                     streakData!.daysLogs = [{
@@ -54,10 +77,11 @@ const list = async () => {
                         dayNumber: 0,
                         success: false,
                     }]
+                    
+                    // Remove XP for streak failure
+                    await removeXP(streakData!.xpPerStreak);
                     streakData!.xpPerStreak = 0
                     streakData!.streakReset = today
-
-                    await db.write()
 
                     console.log(chalk.red("Oops! you failed this streak as per rule you have lost all your xp gain from this streak and now has to start from day one again."))
                     restartProgram()
