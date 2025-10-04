@@ -15,7 +15,8 @@ export type Streak = {
     createdAt: string;
     xpPerStreak: number;
     daysLogs: daysLogs[];
-    numberOfDays: number
+    numberOfDays: number,
+    streakReset?: string
 };
 type DB = {
     xp: number;
@@ -24,7 +25,7 @@ type DB = {
 };
 
 
-const file = path.resolve('./src/db/db.json'); 
+const file = path.resolve('./src/db/db.json');
 const adapter = new JSONFile<DB>(file);
 const db = new Low<DB>(adapter, { xp: 0, level: 1, streaks: [] });
 
