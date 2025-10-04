@@ -48,7 +48,7 @@ StreakChain has your back!
     // Rules
     const rules = `
 📜 Rules of StreakChain:
-.5. Log your streak every day (no excuses).
+1. Log your streak every day (no excuses).
 2. Missing a day resets your streak to 0 and you lose all XP from that streak.
 3. Every log earns you XP — consistency = growth.
 4. Level up as you accumulate XP.
@@ -66,7 +66,7 @@ StreakChain has your back!
 
     const footer = `
 👨‍💻 Created by: ${chalk.bold("Muhammad Yaseen")}
-🔗 Connect with me: ${chalk.underline("www.linkedin.com/in/mohammad-yaseen.506")}
+🔗 Connect with me: ${chalk.underline("www.linkedin.com/in/mohammad-yaseen.106")}
 `;
     console.log(
         boxen(chalk.yellowBright(footer), {
