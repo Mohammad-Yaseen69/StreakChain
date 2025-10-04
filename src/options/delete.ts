@@ -21,21 +21,39 @@ const deleteStreaks = async () => {
 
 
         if (typeof streak === "number") {
-            const { agree } = await inquirer.prompt([{
-                type: "confirm",
-                name: "agree",
-                message: "Are you sure you wants to delete this streak? you will lost all your XP for this streak."
-            }])
-            if (agree === true) {
-                const streakXp: any = db.data.streaks.find(s => s.id === streak)?.xpPerStreak
-                await removeXP(streakXp)
+            const streakData: Streak | undefined = db.data.streaks.find(s => s.id === streak)
 
-                db.data.streaks = db.data.streaks.filter(s => s.id !== streak)
-                await db.write()
-                console.log(chalk.green("Streak Deleted Successfully"))
-                restartProgram()
+            if (streakData?.isCompleted) {
+                const { agree } = await inquirer.prompt([{
+                    type: "confirm",
+                    name: "agree",
+                    message: "Are you sure you wants to delete this streak? although you have already finished this streak successfully so you won't lose any progress even if you delete it."
+                }])
+                if (agree === true) {
+                    db.data.streaks = db.data.streaks.filter(s => s.id !== streak)
+                    await db.write()
+                    console.log(chalk.green("Streak Deleted Successfully"))
+                    restartProgram()
+                } else {
+                    deleteStreaks()
+                }
             } else {
-                deleteStreaks()
+                const { agree } = await inquirer.prompt([{
+                    type: "confirm",
+                    name: "agree",
+                    message: "Are you sure you wants to delete this streak? you will lost all your XP for this streak."
+                }])
+                if (agree === true) {
+                    const streakXp: any = db.data.streaks.find(s => s.id === streak)?.xpPerStreak
+                    await removeXP(streakXp)
+
+                    db.data.streaks = db.data.streaks.filter(s => s.id !== streak)
+                    await db.write()
+                    console.log(chalk.green("Streak Deleted Successfully"))
+                    restartProgram()
+                } else {
+                    deleteStreaks()
+                }
             }
         } else {
             mainMenu()

@@ -16,7 +16,8 @@ export type Streak = {
     xpPerStreak: number;
     daysLogs: daysLogs[];
     numberOfDays: number,
-    streakReset?: string
+    streakReset?: string,
+    isCompleted?: boolean
 };
 type DB = {
     xp: number;

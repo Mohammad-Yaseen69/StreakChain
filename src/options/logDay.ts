@@ -23,9 +23,12 @@ const list = async () => {
         if (typeof streak === "number") {
             const streakData = db.data.streaks.find(s => s.id === streak)
             const today = new Date().toISOString().split("T")[0];
+            
             if (streakData?.daysLogs.find(log => log.date === today)) {
                 console.log(chalk.red("⚠️  You've already checked in today for this streak!"))
                 restartProgram()
+            } else if (streakData?.isCompleted) {
+                console.log(chalk.green("You have already completed this streak!"))
             } else {
                 const { success } = await inquirer.prompt([
                     {
@@ -35,8 +38,9 @@ const list = async () => {
                     }
                 ])
 
+                const lastDay = streakData?.daysLogs?.[streakData.daysLogs.length - 1];
+                const currentStreak = lastDay ? lastDay.dayNumber + 1 : 1;
                 if (success) {
-                    const lastDay = streakData?.daysLogs?.[streakData.daysLogs.length - 1];
 
                     streakData?.daysLogs?.push({
                         date: today,
@@ -45,8 +49,7 @@ const list = async () => {
                     })
                     // Calculate XP with streak bonus
                     let xpGained = 10;
-                    const currentStreak = lastDay ? lastDay.dayNumber + 1 : 1;
-                    
+
                     // Bonus XP for milestone streaks
                     if (currentStreak === 7) {
                         xpGained += 20; // 7-day milestone bonus
@@ -61,14 +64,18 @@ const list = async () => {
                         xpGained += 10; // Every 10 days bonus
                         console.log(chalk.cyanBright(`🎯 ${currentStreak}-day streak! +10 bonus XP!`));
                     }
-                    
+
                     streakData!.xpPerStreak += xpGained
-                    
+
                     // Use the new XP system
                     const leveledUp = await addXP(xpGained);
                     console.log(chalk.greenBright(`✅ Day logged successfully! You have gained ${xpGained} XP! Keep it up!`))
                     if (leveledUp) {
                         console.log(chalk.yellowBright("🎉 Level up! Check your new level in the main menu!"));
+                    }
+                    if (currentStreak === streakData?.numberOfDays) {
+                        console.log(chalk.bold.greenBright("🎉 Congrats! You’ve successfully completed this streak. Keep that fire going!"))
+                        streakData.isCompleted = true
                     }
                     restartProgram()
                 } else {
@@ -77,8 +84,7 @@ const list = async () => {
                         dayNumber: 0,
                         success: false,
                     }]
-                    
-                    // Remove XP for streak failure
+
                     await removeXP(streakData!.xpPerStreak);
                     streakData!.xpPerStreak = 0
                     streakData!.streakReset = today

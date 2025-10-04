@@ -8,8 +8,9 @@ const createStreak = async () => {
     console.clear()
     await db.read();
 
-    if (db.data.streaks.length >= 3) {
-        console.log(chalk.red.bold("You can only have 3 streaks at a time!"))
+    const filteredStreaks = db.data.streaks.filter(s => !s.isCompleted)
+    if (filteredStreaks.length >= 3) {
+        console.log(chalk.red.bold("You can only have 3 active streaks at a time!"))
         restartProgram()
     } else {
         console.log(chalk.magentaBright.bold('Create your Streak'))
@@ -42,12 +43,12 @@ const createStreak = async () => {
 
 
             if (!db.data) {
-                db.data = { 
-                    xp: 0, 
-                    level: 1, 
-                    streaks: [], 
-                    totalXP: 0, 
-                    levelUpHistory: [] 
+                db.data = {
+                    xp: 0,
+                    level: 1,
+                    streaks: [],
+                    totalXP: 0,
+                    levelUpHistory: []
                 };
             }
 
@@ -58,7 +59,7 @@ const createStreak = async () => {
                 createdAt: today,
                 daysLogs: [],
                 xpPerStreak: 0,
-                numberOfDays: days
+                numberOfDays: days,
             })
 
             await db.write()

@@ -90,7 +90,6 @@ export class LevelSystem {
         let level = 1;
         let totalXPForLevel = 0;
 
-        // Find current level
         for (let i = 0; i < XP_REQUIREMENTS.length; i++) {
             if (currentXP >= XP_REQUIREMENTS[i]) {
                 level = i + 1;

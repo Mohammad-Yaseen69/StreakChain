@@ -12,28 +12,28 @@ export const addXP = async (amount: number): Promise<boolean> => {
     const oldXP = db.data.xp;
     db.data.xp += amount;
     db.data.totalXP += amount;
-    
+
     // Check for level up
     const levelUpInfo = LevelSystem.checkLevelUp(oldXP, db.data.xp);
-    
+
     if (levelUpInfo) {
         // Update level in database
         db.data.level = levelUpInfo.level;
-        
+
         // Add to level up history
         db.data.levelUpHistory.push({
             level: levelUpInfo.level,
             date: new Date().toISOString().split("T")[0],
             title: levelUpInfo.title
         });
-        
+
         // Display level up celebration
         LevelSystem.displayLevelUp(levelUpInfo);
-        
+
         await db.write();
         return true; // Leveled up
     }
-    
+
     await db.write();
     return false; // No level up
 };
@@ -57,7 +57,7 @@ const streakMissCheck = async () => {
         const noLogs = streak.daysLogs.length === 0;
         const notCreatedToday = streak.createdAt !== today;
 
-        return (!hasYesterday || noLogs) && notCreatedToday && !hasToday;
+        return (!hasYesterday || noLogs) && notCreatedToday && !hasToday && !streak.isCompleted;
     });
 
 
@@ -87,14 +87,14 @@ const streakMissCheck = async () => {
 const showLevelDetails = async () => {
     console.clear();
     await db.read();
-    
+
     const levelInfo = LevelSystem.calculateLevelInfo(db.data.xp);
-    
+
     console.log(chalk.magentaBright.bold("📊 Level & Progress Details\n"));
-    
+
     // Display detailed level info
     LevelSystem.displayLevelInfo(levelInfo);
-    
+
     // Show level up history if available
     if (db.data.levelUpHistory && db.data.levelUpHistory.length > 0) {
         console.log(chalk.yellowBright.bold("\n🏆 Level Up History:"));
@@ -103,18 +103,19 @@ const showLevelDetails = async () => {
             console.log(chalk.cyan(`  Level ${entry.level} - ${entry.title} (${entry.date})`));
         });
     }
-    
+
+    const filteredStreaks = db.data.streaks.filter(s => !s.isCompleted)
     // Show statistics
     console.log(chalk.greenBright.bold("\n📈 Statistics:"));
     console.log(chalk.white(`  Total XP Earned: ${chalk.bold(db.data.totalXP)}`));
     console.log(chalk.white(`  Current XP: ${chalk.bold(db.data.xp)}`));
-    console.log(chalk.white(`  Active Streaks: ${chalk.bold(db.data.streaks.length)}`));
-    
+    console.log(chalk.white(`  Active Streaks: ${chalk.bold(filteredStreaks.length)}`));
+
     // Show level requirements for next few levels
     const currentLevel = levelInfo.level;
     const maxLevel = Math.min(currentLevel + 5, LevelSystem.getMaxLevel());
     LevelSystem.displayLevelRequirements(currentLevel, maxLevel);
-    
+
     restartProgram();
 };
 
@@ -124,7 +125,7 @@ export const mainMenu = async () => {
     console.log(chalk.magentaBright.bold("\n✨ Welcome to Streak Chain ✨\n"));
 
     await streakMissCheck()
-    
+
     // Display enhanced level information
     const levelInfo = LevelSystem.calculateLevelInfo(db.data.xp);
     console.log(chalk.greenBright(`Your Current ${chalk.yellowBright.bold("XP")}: ${chalk.bold(db.data.xp)}`));
