@@ -66,7 +66,7 @@ StreakChain has your back!
 
     const footer = `
 👨‍💻 Created by: ${chalk.bold("Muhammad Yaseen")}
-🔗 Connect with me: ${chalk.underline("www.linkedin.com/in/mohammad-yaseen.106")}
+🔗 Connect with me: ${chalk.underline("www.linkedin.com/in/mohammad-yaseen106")}
 `;
     console.log(
         boxen(chalk.yellowBright(footer), {
