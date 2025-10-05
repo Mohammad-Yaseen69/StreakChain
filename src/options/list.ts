@@ -1,8 +1,8 @@
 import inquirer from "inquirer";
 import chalk from "chalk";
 import boxen from "boxen";
-import db from "../db/index.ts";
-import { mainMenu, restartProgram } from "../index.ts";
+import db from "../db/index";
+import { mainMenu, restartProgram } from "../index";
 
 const listStreaks = async () => {
     await db.read();
@@ -33,6 +33,7 @@ const listStreaks = async () => {
 
         if (streakData) {
             console.log(chalk.yellowBright(`🏆  XP per streak: ${streakData?.xpPerStreak || 0}\n`));
+            console.log(chalk.bold(chalk.magenta("Your purpose for this streak:", chalk.blue(streakData.purpose))))
 
             if (!streakData.daysLogs || streakData.daysLogs.length === 0) {
                 console.log(chalk.gray("No logs yet. Start logging to see progress!"));

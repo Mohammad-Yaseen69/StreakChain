@@ -1,7 +1,7 @@
-import about from "./about.ts"
-import createStreak from "./create.ts"
-import listStreaks from "./list.ts"
-import deleteStreaks from "./delete.ts"
-import logDay from "./logDay.ts"
+import about from "./about"
+import createStreak from "./create"
+import listStreaks from "./list"
+import deleteStreaks from "./delete"
+import logDay from "./logDay"
 
 export { about, createStreak, listStreaks, deleteStreaks, logDay }

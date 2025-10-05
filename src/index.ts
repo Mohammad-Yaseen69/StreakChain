@@ -1,9 +1,34 @@
 import inquirer from "inquirer";
 import chalk from "chalk";
-import { about, createStreak, deleteStreaks, listStreaks, logDay } from "./options/index.ts";
-import db, { Streak } from "./db/index.ts";
+import { about, createStreak, deleteStreaks, listStreaks, logDay } from "./options/index";
+import db, { Streak } from "./db/index";
 import { format, subDays } from "date-fns";
-import { LevelSystem } from "./utils/levelSystem.ts";
+import { LevelSystem } from "./utils/levelSystem";
+import AutoLaunch from "auto-launch";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const isPackaged = (process as any).pkg !== undefined;
+const appPath =
+    isPackaged
+        ? process.execPath
+        : process.argv[0];
+
+const launcher = new AutoLaunch({
+    name: "StreakChain",
+    path: appPath,
+});
+
+const enableAutoLaunch = async () => {
+    const isEnabled = await launcher.isEnabled();
+    if (!isEnabled) {
+        await launcher.enable();
+    }
+};
+
 
 /**
  * Add XP and check for level up
@@ -121,6 +146,7 @@ const showLevelDetails = async () => {
 
 export const mainMenu = async () => {
     console.clear();
+    enableAutoLaunch();
     await db.read()
     console.log(chalk.magentaBright.bold("\n✨ Welcome to Streak Chain ✨\n"));
 

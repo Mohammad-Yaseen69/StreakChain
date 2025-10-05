@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import chalk from "chalk"
-import db from "../db/index.ts";
-import { mainMenu, restartProgram, addXP, removeXP } from "../index.ts";
+import db from "../db/index";
+import { mainMenu, restartProgram, addXP, removeXP } from "../index";
 
 const list = async () => {
     await db.read()
