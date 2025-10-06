@@ -8,8 +8,8 @@
     "build": "tsc",
     "start": "dist/index.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Yaseen",
+  "license": "MIT",
   "description": "",
   "dependencies": {
     "auto-launch": "^5.0.6",
@@ -27,5 +27,17 @@
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
-  }
+  },
+  "bin": {
+    "streakchain": "dist/index.js"
+  },
+  "pkg": {
+    "scripts": [
+      "dist/**/*.js"
+    ],
+    "assets": [
+      "dist/**/*.json"
+    ]
+  },
+  "keywords": ["streak", "cli", "productivity"]
 }

@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+
+
 import inquirer from "inquirer";
 import chalk from "chalk";
 import { about, createStreak, deleteStreaks, listStreaks, logDay } from "./options/index";
