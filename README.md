@@ -4,7 +4,7 @@ A delightful, gamified CLI to build daily habits by tracking streaks and earning
 
 ---
 
-![StreakChain Banner](./assets/screenshots/main-menu.png)
+![StreakChain Banner](https://github.com/Mohammad-Yaseen69/StreakChain/raw/main/assets/screenshots/main-menu.png)
 
 ## Highlights
 
@@ -14,10 +14,10 @@ A delightful, gamified CLI to build daily habits by tracking streaks and earning
 - Cross-platform (Windows / macOS / Linux) Node.js CLI.
 
 ## Quick Demo Screenshots
-- Main menu: ![StreakChain Banner](./assets/screenshots/main-menu.png)
-- Level & progress: ![Level & Progress](./assets/screenshots/level-details.png)
-- Create streak confirmation: ![Create Streak](./assets/screenshots/create-streak.png)
-- About screen: ![About StreakChain](./assets/screenshots/about.png)
+- Main menu: ![StreakChain Banner](https://github.com/Mohammad-Yaseen69/StreakChain/raw/main/assets/screenshots/main-menu.png)
+- Level & progress: ![Level & Progress](https://github.com/Mohammad-Yaseen69/StreakChain/raw/main/assets/screenshots/level-details.png)
+- Create streak confirmation: ![Create Streak](https://github.com/Mohammad-Yaseen69/StreakChain/raw/main/assets/screenshots/create-streak.png)
+- About screen: ![About StreakChain](https://github.com/Mohammad-Yaseen69/StreakChain/raw/main/assets/screenshots/about.png)
 
 
 ---
@@ -172,11 +172,4 @@ If you'd like, I can also prepare a GitHub Actions workflow for packaging and re
 
 This project is licensed under the MIT License. See the `LICENSE` file for details (if present).
 
----
 
-If you'd like, I can:
-
-- Add the actual screenshot files into the repository (upload them here and I'll add them to `assets/screenshots/`).
-- Add a small `docs/` page or examples of typical workflows.
-
-Tell me if you want the screenshots added and I'll include them in the repo and update the README to display them inline.
