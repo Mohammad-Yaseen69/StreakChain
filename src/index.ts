@@ -10,6 +10,7 @@ import { LevelSystem } from "./utils/levelSystem";
 import AutoLaunch from "auto-launch";
 import path from "path";
 import { fileURLToPath } from "url";
+import { setupWindowsAutoStart } from "./utils/autoStart";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -149,7 +150,7 @@ const showLevelDetails = async () => {
 
 export const mainMenu = async () => {
     console.clear();
-    enableAutoLaunch();
+    setupWindowsAutoStart()
     await db.read()
     console.log(chalk.magentaBright.bold("\n✨ Welcome to Streak Chain ✨\n"));
 
