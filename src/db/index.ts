@@ -1,6 +1,8 @@
 import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
 import path from "path"
+import os from "os"
+import fs from "fs"
 
 type daysLogs = {
     date: string,
@@ -32,7 +34,11 @@ type DB = {
 };
 
 
-const file = path.resolve('./src/db/db.json');
+const dbDir = path.join(os.homedir(), '.streakchain');
+if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir, { recursive: true });
+}
+const file = path.join(dbDir, 'db.json');
 const adapter = new JSONFile<DB>(file);
 const db = new Low<DB>(adapter, {
     xp: 0,

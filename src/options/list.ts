@@ -1,8 +1,8 @@
 import inquirer from "inquirer";
 import chalk from "chalk";
 import boxen from "boxen";
-import db from "../db/index";
-import { mainMenu, restartProgram } from "../index";
+import db from "../db/index.js";
+import { mainMenu, restartProgram } from "../index.js";
 
 const listStreaks = async () => {
     await db.read();

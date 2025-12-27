@@ -1,7 +1,7 @@
-import about from "./about"
-import createStreak from "./create"
-import listStreaks from "./list"
-import deleteStreaks from "./delete"
-import logDay from "./logDay"
+import about from "./about.js"
+import createStreak from "./create.js"
+import listStreaks from "./list.js"
+import deleteStreaks from "./delete.js"
+import logDay from "./logDay.js"
 
 export { about, createStreak, listStreaks, deleteStreaks, logDay }

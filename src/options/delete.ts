@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import chalk from "chalk"
-import db, { Streak } from "../db/index";
-import { mainMenu, removeXP, restartProgram } from "../index";
+import db, { Streak } from "../db/index.js";
+import { mainMenu, removeXP, restartProgram } from "../index.js";
 
 const deleteStreaks = async () => {
     await db.read()

@@ -1,7 +1,7 @@
 import inquirer from "inquirer"
 import chalk from "chalk"
-import db from "../db/index"
-import { restartProgram } from "../index"
+import db from "../db/index.js"
+import { restartProgram } from "../index.js"
 import boxen from "boxen"
 
 const createStreak = async () => {

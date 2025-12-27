@@ -3,14 +3,14 @@
 
 import inquirer from "inquirer";
 import chalk from "chalk";
-import { about, createStreak, deleteStreaks, listStreaks, logDay } from "./options/index";
-import db, { Streak } from "./db/index";
+import { about, createStreak, deleteStreaks, listStreaks, logDay } from "./options/index.js";
+import db, { Streak } from "./db/index.js";
 import { format, subDays } from "date-fns";
-import { LevelSystem } from "./utils/levelSystem";
+import { LevelSystem } from "./utils/levelSystem.js";
 import AutoLaunch from "auto-launch";
 import path from "path";
 import { fileURLToPath } from "url";
-import { setupWindowsAutoStart } from "./utils/autoStart";
+import { setupWindowsAutoStart } from "./utils/autoStart.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
