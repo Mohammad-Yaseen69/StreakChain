@@ -10,5 +10,9 @@
     "forceConsistentCasingInFileNames": true,
     "allowImportingTsExtensions": false,
     "noEmit": false,
-  }
+    "skipLibCheck": true
+  },
+  "include": [
+    "src"
+  ]
 }

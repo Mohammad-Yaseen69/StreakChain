@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "node --loader ts-node/esm src/index.ts",
-    "build": "tsc",
-    "start": "dist/index.js"
+    "build": "tsc && tsc-alias",
+    "start": "node dist/index.js"
   },
   "author": "Yaseen",
   "license": "MIT",
@@ -26,6 +26,7 @@
     "@types/node": "^24.5.2",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.16",
     "typescript": "^5.9.2"
   },
   "bin": {
